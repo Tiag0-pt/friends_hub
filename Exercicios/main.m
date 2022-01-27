@@ -1,12 +1,4 @@
-users = readcell('users.txt','Delimiter',';');
-friends = readcell('friends.txt','Delimiter',' ');
-
-interesses = cell(1,length(users));
-for i=1:length(users)
-    cell_i = users(i,4:end);
-    cell_i( cellfun( @(cell_i) isa(cell_i,'missing'), cell_i ) ) = {[]};
-    interesses{i} = cell_i;
-end
+[users,friends,interesses] = inicialization();
 
 ID = input("Insert Valid user ID:\n\n");
 
@@ -26,11 +18,7 @@ while 1
                 end
             end
             
-        case 2
-            
-            
-    end
-                
-            
-            
+        case 5
+            return;
+    end           
 end
