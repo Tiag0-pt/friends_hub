@@ -18,6 +18,9 @@ while 1
                 end
             end
             
+        case 3
+            fprintf("\n");
+            
         case 5
             return;
     end           

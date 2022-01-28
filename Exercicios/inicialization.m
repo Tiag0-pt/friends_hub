@@ -1,4 +1,4 @@
-function [users,friends,interesses] = inicialization()
+function [users,friends,interesses,name_shingles] = inicialization()
     users = readcell('users.txt','Delimiter',';');
     friends = readcell('friends.txt','Delimiter',' ');
     interesses = cell(1,length(users));
@@ -14,4 +14,10 @@ function [users,friends,interesses] = inicialization()
         interesses{i} = arr;
     end
     users = users(:,1:3);
+    name_shingles = get_name_shingles(users);
 end
+
+%%%% Unique in cells
+
+% test = {1,2,3,'No';1,3,2,'Yes';2,2,2,'Yes'};
+% out = unique(cellfun(@num2str,test,'uni',0));
