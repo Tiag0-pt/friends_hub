@@ -1,11 +1,10 @@
-function signatures = minHash (Set)
+function signatures = minHash (Set,v)
   
-  nS = length(Set);  %Total ammount of Set elements
+  nS = size(Set,1);  %Total ammount of Set elements
   nHash = 100;       %Total ammount of Hash Functions we'll usejava
   signatures = ones(nHash,size(Set,2))*999999999; %Each Row -> A Set entry ; Each Col -> Hashing of That Set's Entry
   
   h= waitbar(0,'Calculating');
-  v = InitHashFunctions(100000,nHash);
 
   hcodes = zeros(nHash);
   for nu= 1:nS
