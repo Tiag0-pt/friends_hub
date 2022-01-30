@@ -10,6 +10,8 @@ for i=1:n_files
     end
     
 end
+
+
 ID = input("Insert Valid user ID:\n\n");
 
 while 1
@@ -73,27 +75,37 @@ while 1
             
             name = name(find(~isspace(name)));
             
-            if(membro(name,Bloom_filter,bloom_hashf))
+            ver_array = membro(name,Bloom_filter,bloom_hashf);
+            
+            if(sum(Bloom_filter(ver_array)) == length(ver_array))
                 doc = zeros(1,length(names_shingles));
 
-                for j=1:length(name_shingles)
-                    doc(j) = contains(name,name_shingles{j});
+                for j=1:length(names_shingles)
+                    doc(j) = contains(name,names_shingles{j});
                 end
 
                 doc = doc';
+                
                 ass_name = minHash(doc,hash_param);
 
                 probs = zeros(1,1000);
 
                 for i=1:1000
-                    prob(i) = sum(names_ass(:,i) == ass_name)/100;
+                    probs(i) = sum(names_ass(:,i) == ass_name)/100;
                 end
 
-                candidates = sort(find(prob(i)>0.7 == 1),'descend');
+                candidates = sort(find(probs(i)>0.7),'descend');
 
-                for i=1:length(candidates)
-                    u = user{candidates(i)};
-                    fprintf("ID %d: %s %s\n",u{1},u{2},u{3});
+                for i=1:length(probs)
+                    if(probs(i)>0.7)
+                        Id = users{i,1};
+                        name = users{i,2};
+                        second_name = users{i,3};
+                        
+                        fprintf("ID: %d Nome: %s %s",Id,name,second_name);
+                    end
+                    
+                    
                 end
                 
             else

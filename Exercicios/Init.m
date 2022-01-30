@@ -83,7 +83,8 @@ function [users,friends,categorias,interesses_docs,interesses_ass,names_ass,name
     end
     
     for i=1:n_users
-         adicionar_elemento(Bloom_filter,bloom_hashf,users{i,2});
+         arr = adicionar_elemento(Bloom_filter,bloom_hashf,users{i,2});
+         Bloom_filter(arr) = 1;
     end
     
     save('bloom_hashf');
