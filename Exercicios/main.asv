@@ -68,8 +68,7 @@ while 1
             
             
         case 3
-            
-            name = inputdlg("Intruduza o nome completo de quem pretende procurar:\n\n");
+            name = input("Intruduza o nome completo de quem pretende procurar:\n\n");
             
             name = name(find(~isspace(name)));
             

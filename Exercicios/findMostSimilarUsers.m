@@ -16,3 +16,4 @@ function users_ids = findMostSimilarUsers(id, signatures, n)
 
     [B,users_ids]=mink(simArr,n);
 end
+
