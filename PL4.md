@@ -192,7 +192,6 @@ $$
 
 ## 4. Find most similar user based in list of interests
 
-// Place Holder
 Nesta opcao e nos pedido para listar os amigos do utilizador atual escolhendo um desses amigos e apresentar os 3 utilizadores mais similares ao amigo escolhido com base nos interesses dele. Dividimos essa tarefa em 3 partes:
 
 - Listar os amigos de ID e guardar o valor inserido pelo utilizador
