@@ -52,7 +52,7 @@ while 1
 
             fprintf("Amigo mais similar aos seus interesses:\nId: %d Nome: %s %s\n\n",most_similar_user,users{most_similar_user,2},users{most_similar_user,3});
             
-            interesses_de_msu = interesses_docs{most_similar_user};
+            interesses_de_msu = interesses_docs(most_similar_user,:)';
             fprintf("Interesses de %d:\n",most_similar_user);
             for i=1: length(categorias)
                 if (interesses_de_msu(i)==1)
@@ -60,10 +60,10 @@ while 1
                 end
             end
 
-            interesses_de_msu = interesses_docs{most_similar_user};
+            interesses_de_msu = interesses_docs(most_similar_user,:)';
             fprintf("\nNovas sugestoes para %d:\n",ID);
             for i=1: length(categorias)
-                if (interesses_de_msu(i)==1 && interesses_docs{ID}(i)==0)
+                if (interesses_de_msu(i)==1 && interesses_docs(ID,i)==0)
                     fprintf("%s\n",categorias{i});
                 end
             end
