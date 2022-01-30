@@ -193,3 +193,79 @@ $$
 ## 4. Find most similar user based in list of interests
 
 // Place Holder
+Nesta opcao e nos pedido para listar os amigos do utilizador atual escolhendo um desses amigos e apresentar os 3 utilizadores mais similares ao amigo escolhido com base nos interesses dele. Dividimos essa tarefa em 3 partes:
+
+- Listar os amigos de ID e guardar o valor inserido pelo utilizador
+- Calcular a matriz de assinaturas atraves do minHash
+- Determinar os 3 utilizadores mais similares
+
+```matlab
+for i=1:length(friends)
+    if(friends{i,1} == ID)
+        fprintf("Id: %d Nome: %s %s\n",friends{i,2},users{friends{i,2},2},users{friends{i,2},3});
+        if(friends{i+1,1}~=ID)
+            break;
+        end
+    end
+end
+ 
+friend_id = input("\nchoose one of the friends:\n\n");
+    
+% Transpose interesses cell array
+interesses_post = [];
+for i=1:length(users)
+    interesses_post = [interesses_post interesses{i}'];
+end
+
+% Obter matriz de assinaturas
+signatures = minHash(interesses_post);
+similar_users=findMostSimilarUsers(friend_id,signatures,3);
+
+fprintf("\nUsers mais similares aos interesses de\nId: %d Nome: %s %s\n====================\n",friend_id,users{friend_id,2},users{friend_id,3});
+           
+for i=1: length(similar_users)
+    fprintf("\nId: %d Nome: %s %s",similar_users(i),users{similar_users(i),2},users{similar_users(i),3});
+end
+```
+
+A funcao minHash baseia-se na implementacao que esta no livro "Mining of Massive Datasets" (pg. 84):
+
+```matlab
+function signatures = minHash (Set)
+  
+  nS = size(Set,1);  %Total ammount of Set elements
+  nHash = 100;       %Total ammount of Hash Functions we'll use
+  signatures = ones(nHash,size(Set,2))*999999999; % Each Row -> Hashing of That Set's Entry; Each Col -> A Set entry 
+  
+  h= waitbar(0,'Calculating');
+  v = InitHashFunctions(100000,nHash);
+
+  hcodes = zeros(nHash);
+  for nu= 1:nS
+      waitbar(nu/nS, h);
+
+      % Calculamos h1(row),h2(row),...,hn(row)
+      for nh= 1:nHash
+          hcodes(nh)= mod(v.a(nh)*(nu)+v.b(nh),v.p);
+      end
+      
+      fs = Set(nu,:);
+
+      for nf= 1:length(fs)
+          % Se row(col) tem um 0, nao fazemos nada
+          if (fs(nf)==0)
+              continue
+          end
+          
+          % Porem, se row(col) tem um 1, entao para cada i=1,2,...,n signatures(i,col) para o menor valor entre a entrada
+          % na matriz de assinaturas e hi(row)
+          for nh= 1:nHash
+              if (hcodes(nh)<signatures(nh,nf))
+                  signatures(nh,nf)=hcodes(nh);
+              end
+          end
+      end
+  end
+  delete (h)
+end
+```
